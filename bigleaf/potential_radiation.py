@@ -49,8 +49,8 @@ def potential_radiation(doy, hour, latDeg, longDeg, timezone, useSolartime=True)
 
     return potRad
 
-# Helper function: this function should be defined based on your solar time computation
-def compute_sun_position_doy_hour(doy, hour, latDeg, longDeg, timezone, isCorrectSolartime=True):
-    # Placeholder for actual implementation of sun position computation
-    # This should return a DataFrame or structured array with 'elevation' data
-    pass
+# # Helper function: this function should be defined based on your solar time computation
+# def compute_sun_position_doy_hour(doy, hour, latDeg, longDeg, timezone, isCorrectSolartime=True):
+#     # Placeholder for actual implementation of sun position computation
+#     # This should return a DataFrame or structured array with 'elevation' data
+#     pass
