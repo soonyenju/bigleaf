@@ -1,4 +1,5 @@
 # Unit conversions - Python version of R's bigleaf conversion functions
+from .meteorological_variables import latent_heat_vaporization
 
 def LE_to_ET(LE, Tair):
     lambda_ = latent_heat_vaporization(Tair)
