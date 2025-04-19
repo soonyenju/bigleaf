@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from .bigleaf_constants import *
+from .stability_correction import stability_parameter, stability_correction
 
 def reynolds_number(Tair, pressure, ustar, z0m, constants):
     v = kinematic_viscosity(Tair, pressure, constants)
@@ -30,7 +31,7 @@ def roughness_parameters(method, zh, frac_d=0.7, frac_z0m=0.1, LAI=None, zr=None
         z0m_se = np.nan
 
     elif method == "wind_profile":
-        check_input(data, [Tair_col, pressure_col, wind_col, ustar_col, H_col])
+        # check_input(data, [Tair_col, pressure_col, wind_col, ustar_col, H_col])
 
         if d is None:
             d = frac_d * zh
@@ -60,7 +61,7 @@ def wind_profile(data, z, Tair_col="Tair", pressure_col="pressure", ustar_col="u
     if constants is None:
         constants = bigleaf_constants()
 
-    check_input(data, [ustar_col])
+    # check_input(data, [ustar_col])
 
     if d is None:
         d = frac_d * zh
