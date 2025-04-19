@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from .bigleaf_constants import *
+from .meteorological_variables import air_density
 
 # # Constants (example values, adjust according to your constants)
 # def bigleaf_constants():
@@ -17,11 +18,11 @@ from .bigleaf_constants import *
 #     if missing_columns:
 #         raise ValueError(f"Missing required columns: {', '.join(missing_columns)}")
 
-# Air density function
-def air_density(Tair, pressure, constants):
-    # Ideal gas law: rho = p / (R * T)
-    R = 287.05  # Specific gas constant for dry air in J/(kg·K)
-    return pressure * 1e3 / (R * Tair)  # converting pressure from kPa to Pa
+# # Air density function
+# def air_density(Tair, pressure, constants):
+#     # Ideal gas law: rho = p / (R * T)
+#     R = 287.05  # Specific gas constant for dry air in J/(kg·K)
+#     return pressure * 1e3 / (R * Tair)  # converting pressure from kPa to Pa
 
 # Monin-Obukhov Length function
 def monin_obukhov_length(data, Tair="Tair", pressure="pressure", ustar="ustar", H="H", constants=None):
