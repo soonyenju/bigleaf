@@ -3,7 +3,7 @@ import pandas as pd
 from .surface_roughness import wind_profile, reynolds_number
 from .meteorological_variables import kinematic_viscosity
 
-def gb_thom(ustar, Sc=None, Sc_name=None, constants=None):
+def Gb_Thom(ustar, Sc=None, Sc_name=None, constants=None):
     Rb_h = 6.2 * ustar ** -0.667
     Gb_h = 1 / Rb_h
     kB_h = Rb_h * constants['k'] * ustar
@@ -21,7 +21,7 @@ def gb_thom(ustar, Sc=None, Sc_name=None, constants=None):
     return pd.DataFrame({'Gb_h': Gb_h, 'Rb_h': Rb_h, 'kB_h': kB_h, **Gb_x})
 
 
-def gb_choudhury(data, leafwidth, LAI, zh, zr, d,
+def Gb_Choudhury(data, leafwidth, LAI, zh, zr, d,
                  Tair='Tair', pressure='pressure', wind='wind', ustar='ustar', H='H',
                  z0m=None, stab_formulation='Dyer_1970',
                  Sc=None, Sc_name=None, constants=None):
@@ -52,7 +52,7 @@ def gb_choudhury(data, leafwidth, LAI, zh, zr, d,
     return pd.DataFrame({'Gb_h': Gb_h, 'Rb_h': Rb_h, 'kB_h': kB_h, **Gb_x})
 
 
-def gb_su(data, zh, zr, d, Dl,
+def Gb_Su(data, zh, zr, d, Dl,
           Tair='Tair', pressure='pressure', ustar='ustar', wind='wind', H='H',
           z0m=None, fc=None, LAI=None, N=2, Cd=0.2, hs=0.01,
           stab_formulation='Dyer_1970', Sc=None, Sc_name=None, constants=None):
