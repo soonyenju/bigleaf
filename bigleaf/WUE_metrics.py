@@ -1,4 +1,4 @@
-from bigleaf_constants import *
+from .bigleaf_constants import *
 
 def WUE_metrics(data, GPP_col="GPP", NEE_col="NEE", LE_col="LE", VPD_col="VPD", Tair_col="Tair",
                 constants=None):
