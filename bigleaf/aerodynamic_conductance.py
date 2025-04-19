@@ -1,9 +1,7 @@
 import numpy as np
 import pandas as pd
 from .bigleaf_constants import *
-from .boundary_layer_conductance import gb_thom as Gb_Thom
-from .boundary_layer_conductance import gb_choudhury as Gb_Choudhury
-from .boundary_layer_conductance import gb_su as Gb_Su
+from .boundary_layer_conductance import Gb_Thom, Gb_Choudhury, Gb_Su
 from .surface_roughness import roughness_parameters
 from .boundary_layer_conductance import roughness_length_heat
 from .stability_correction import stability_parameter, stability_correction
