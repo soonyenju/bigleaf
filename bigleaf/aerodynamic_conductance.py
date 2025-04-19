@@ -33,10 +33,10 @@ def aerodynamic_conductance(data, Tair="Tair", pressure="pressure", wind="wind",
 
     if Rb_model in ["Thom_1972", "Choudhury_1988", "Su_2001"]:
         if Rb_model == "Thom_1972":
-            Gb_mod = Gb_Thom(ustar_vals, Sc=Sc, Sc_name=Sc_name, constants=constants)
+            Gb_mod = Gb_Thom(data[ustar], Sc=Sc, Sc_name=Sc_name, constants=constants)
         elif Rb_model == "Choudhury_1988":
-            Gb_mod = Gb_Choudhury(data, T, P, U, ustar_vals, H_vals, Dl, LAI, zh, zr, d, z0m,
-                                  stab_formulation, Sc, Sc_name, constants)
+            Gb_mod = Gb_Choudhury(data, Dl, LAI, zh, zr, d, Tair, pressure, wind, ustar, H,
+                                  z0m, stab_formulation, Sc, Sc_name, constants)
         elif Rb_model == "Su_2001":
             Gb_mod = Gb_Su(data, T, P, ustar_vals, U, H_vals, zh, zr, d, z0m, Dl, N, fc,
                            LAI, Cd, hs, stab_formulation, Sc, Sc_name, constants)
