@@ -1,4 +1,7 @@
-from bigleaf_constants import *
+import numpy as np
+import pandas as pd
+from .bigleaf_constants import *
+from .boundary_layer_conductance import gb_thom, gb_choudhury, gb_su
 
 def aerodynamic_conductance(data, Tair="Tair", pressure="pressure", wind="wind", ustar="ustar", H="H",
                              zr=None, zh=None, d=None, z0m=None, Dl=None, N=2, fc=None, LAI=None,
@@ -6,18 +9,20 @@ def aerodynamic_conductance(data, Tair="Tair", pressure="pressure", wind="wind",
                              stab_formulation="Dyer_1970", Rb_model="Thom_1972",
                              kB_h=None, Sc=None, Sc_name=None, constants=None):
 
-    # Handle default constants
+    # # Handle default constants
+    # if constants is None:
+    #     constants = {
+    #         'k': 0.41,           # von Karman constant
+    #         'cp': 1005,          # specific heat of air (J K-1 kg-1)
+    #         'Kelvin': 273.15,    # C to K conversion
+    #         'g': 9.81,           # gravity (m s-2)
+    #         'pressure0': 101.3,  # reference pressure at sea level (kPa)
+    #         'Tair0': 298.15,     # reference temperature (K)
+    #         'Sc_CO2': 0.9,       # Schmidt number for CO2
+    #         'Pr': 0.71           # Prandtl number
+    #     }
     if constants is None:
-        constants = {
-            'k': 0.41,           # von Karman constant
-            'cp': 1005,          # specific heat of air (J K-1 kg-1)
-            'Kelvin': 273.15,    # C to K conversion
-            'g': 9.81,           # gravity (m s-2)
-            'pressure0': 101.3,  # reference pressure at sea level (kPa)
-            'Tair0': 298.15,     # reference temperature (K)
-            'Sc_CO2': 0.9,       # Schmidt number for CO2
-            'Pr': 0.71           # Prandtl number
-        }
+        constants = bigleaf_constants()
 
     Rb_model = Rb_model if Rb_model in ["Thom_1972", "Choudhury_1988", "Su_2001", "constant_kB-1"] else "Thom_1972"
     stab_formulation = stab_formulation if stab_formulation in ["Dyer_1970", "Businger_1971"] else "Dyer_1970"
