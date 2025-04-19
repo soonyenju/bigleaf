@@ -11,11 +11,11 @@ from .bigleaf_constants import *
 #         'g': 9.81          # Gravitational acceleration (m/s^2)
 #     }
 
-# Helper function to check if the necessary input columns are in the data
-def check_input(data, required_columns):
-    missing_columns = [col for col in required_columns if col not in data.columns]
-    if missing_columns:
-        raise ValueError(f"Missing required columns: {', '.join(missing_columns)}")
+# # Helper function to check if the necessary input columns are in the data
+# def check_input(data, required_columns):
+#     missing_columns = [col for col in required_columns if col not in data.columns]
+#     if missing_columns:
+#         raise ValueError(f"Missing required columns: {', '.join(missing_columns)}")
 
 # Air density function
 def air_density(Tair, pressure, constants):
@@ -28,7 +28,7 @@ def monin_obukhov_length(data, Tair="Tair", pressure="pressure", ustar="ustar", 
     if constants is None:
         constants = bigleaf_constants()
 
-    check_input(data, [Tair, pressure, ustar, H])
+    # check_input(data, [Tair, pressure, ustar, H])
 
     rho = air_density(data[Tair], data[pressure], constants)
     Tair_K = data[Tair] + constants['Kelvin']  # Celsius to Kelvin
@@ -41,7 +41,7 @@ def stability_parameter(data, Tair="Tair", pressure="pressure", ustar="ustar", H
     if constants is None:
         constants = bigleaf_constants()
 
-    check_input(data, [Tair, pressure, ustar, H, zr, d])
+    # check_input(data, [Tair, pressure, ustar, H, zr, d])
 
     MOL = monin_obukhov_length(data, Tair, pressure, ustar, H, constants)
     zeta = (data[zr] - data[d]) / MOL
