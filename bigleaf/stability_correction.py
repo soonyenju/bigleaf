@@ -1,14 +1,15 @@
 import numpy as np
 import pandas as pd
+from .bigleaf_constants import *
 
-# Constants (example values, adjust according to your constants)
-def bigleaf_constants():
-    return {
-        'Kelvin': 273.15,  # Celsius to Kelvin conversion
-        'cp': 1005,        # Specific heat of air at constant pressure (J/kg·K)
-        'k': 0.4,          # von Karman constant
-        'g': 9.81          # Gravitational acceleration (m/s^2)
-    }
+# # Constants (example values, adjust according to your constants)
+# def bigleaf_constants():
+#     return {
+#         'Kelvin': 273.15,  # Celsius to Kelvin conversion
+#         'cp': 1005,        # Specific heat of air at constant pressure (J/kg·K)
+#         'k': 0.4,          # von Karman constant
+#         'g': 9.81          # Gravitational acceleration (m/s^2)
+#     }
 
 # Helper function to check if the necessary input columns are in the data
 def check_input(data, required_columns):
