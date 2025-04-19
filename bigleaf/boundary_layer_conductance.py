@@ -1,5 +1,7 @@
 import numpy as np
 import pandas as pd
+from .surface_roughness import wind_profile, reynolds_number
+from .meteorological_variables import kinematic_viscosity
 
 def gb_thom(ustar, Sc=None, Sc_name=None, constants=None):
     Rb_h = 6.2 * ustar ** -0.667
