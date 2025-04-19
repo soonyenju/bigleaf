@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from .bigleaf_constants import *
 from .stability_correction import stability_parameter, stability_correction
+from .meteorological_variables import kinematic_viscosity
 
 def reynolds_number(Tair, pressure, ustar, z0m, constants):
     v = kinematic_viscosity(Tair, pressure, constants)
