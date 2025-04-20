@@ -4,7 +4,9 @@ from .bigleaf_constants import *
 from .stability_correction import stability_parameter, stability_correction
 from .meteorological_variables import kinematic_viscosity
 
-def reynolds_number(Tair, pressure, ustar, z0m, constants):
+def reynolds_number(Tair, pressure, ustar, z0m, constants=None):
+    if constants is None:
+        constants = bigleaf_constants()
     v = kinematic_viscosity(Tair, pressure, constants)
     Re = z0m * ustar / v
     return Re
