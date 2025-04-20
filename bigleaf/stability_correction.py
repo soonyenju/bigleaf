@@ -38,14 +38,18 @@ def monin_obukhov_length(data, Tair="Tair", pressure="pressure", ustar="ustar", 
     return MOL
 
 # Stability Parameter "zeta" function
-def stability_parameter(data, Tair="Tair", pressure="pressure", ustar="ustar", H="H", zr="zr", d="d", constants=None):
+def stability_parameter(data, Tair="Tair", pressure="pressure", ustar="ustar", H="H", zr=None, d=None, constants=None):
     if constants is None:
         constants = bigleaf_constants()
+    if zr is None:
+        raise ValueError("zr must be specified")
+    if d is None:
+        raise ValueError("d must be specified")
 
     # check_input(data, [Tair, pressure, ustar, H, zr, d])
 
     MOL = monin_obukhov_length(data, Tair, pressure, ustar, H, constants)
-    zeta = (data[zr] - data[d]) / MOL
+    zeta = (zr - d) / MOL
 
     return zeta
 
