@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 from scipy.optimize import curve_fit, minimize_scalar
+from .bigleaf_constants import *
 
 # Constants
 # def bigleaf_constants():
