@@ -196,7 +196,7 @@ def virtual_temp(Tair, pressure, VPD, formula, constants=None):
 #     esat = esat_slope(Tair, formula, constants)['Esat']
 #     return VPD * esat * constants['kPa2Pa']
 
-def kinematic_viscosity(Tair, pressure, constants):
+def kinematic_viscosity(Tair, pressure, constants=None):
     """
     Calculate kinematic viscosity of air.
 
@@ -208,6 +208,8 @@ def kinematic_viscosity(Tair, pressure, constants):
     Returns:
     - Kinematic viscosity (m² s⁻¹)
     """
+    if constants is None:
+        constants = bigleaf_constants()
     Tair_K = Tair + constants["Kelvin"]
     pressure_Pa = pressure * constants["kPa2Pa"]
 
