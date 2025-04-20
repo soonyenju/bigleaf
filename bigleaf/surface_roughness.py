@@ -15,6 +15,10 @@ def roughness_parameters(method, zh, frac_d=0.7, frac_z0m=0.1, LAI=None, zr=None
                          data=None, Tair="Tair", pressure="pressure", wind="wind",
                          ustar="ustar", H="H", d=None, z0m=None,
                          stab_roughness=True, stab_formulation="Dyer_1970", constants=None):
+    if zr is None:
+        raise ValueError("zr must be specified")
+    if zh is None:
+        raise ValueError("zh must be specified")
 
     if constants is None:
         constants = bigleaf_constants()
@@ -39,16 +43,17 @@ def roughness_parameters(method, zh, frac_d=0.7, frac_z0m=0.1, LAI=None, zr=None
         if d is None:
             d = frac_d * zh
 
-        wind = data[wind]
-        ustar = data[ustar]
+        # wind = data[wind]
+        # ustar = data[ustar]
 
         if stab_roughness:
             zeta = stability_parameter(data, Tair, pressure, ustar, H, zr, d, constants)
             psi_m = stability_correction(zeta, formulation=stab_formulation)["psi_m"]
-            z0m_all = (zr - d) * np.exp(-constants['k'] * wind / ustar - psi_m)
+            z0m_all = (zr - d) * np.exp(-constants['k'] * data[wind] / data[ustar] - psi_m)
         else:
-            z0m_all = (zr - d) * np.exp(-constants['k'] * wind / ustar)
+            z0m_all = (zr - d) * np.exp(-constants['k'] * data[wind] / data[ustar])
 
+        print(z0m_all)
         z0m_all[z0m_all > zh] = np.nan
         z0m = np.nanmedian(z0m_all)
         valid = z0m_all.dropna()
