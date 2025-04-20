@@ -13,7 +13,7 @@ from setuptools import setup, find_packages
 
 setup(
 	name = "bigleaf",
-	version = "0.0.1",
+	version = "0.0.2",
 	keywords = ("Geosciences, geospatial, data science"),
 	description = "R bigleaf module in Python",
 	long_description = "Processing academic data and drawing figures for geosciences researchers.",
