@@ -52,8 +52,7 @@ def roughness_parameters(method, zh, frac_d=0.7, frac_z0m=0.1, LAI=None, zr=None
             z0m_all = (zr - d) * np.exp(-constants['k'] * data[wind] / data[ustar] - psi_m)
         else:
             z0m_all = (zr - d) * np.exp(-constants['k'] * data[wind] / data[ustar])
-
-        print(z0m_all)
+        
         z0m_all[z0m_all > zh] = np.nan
         z0m = np.nanmedian(z0m_all)
         valid = z0m_all.dropna()
@@ -61,43 +60,6 @@ def roughness_parameters(method, zh, frac_d=0.7, frac_z0m=0.1, LAI=None, zr=None
 
     return pd.DataFrame({"d": [d], "z0m": [z0m], "z0m_se": [z0m_se]})
 
-# def wind_profile(data, z, Tair="Tair", pressure="pressure", ustar="ustar", H="H",
-#                  wind="wind", zr=None, zh=None, d=None, frac_d=0.7, z0m=None, frac_z0m=0.1,
-#                  estimate_z0m=True, stab_correction=True, stab_formulation="Dyer_1970",
-#                  constants=None):
-
-#     if constants is None:
-#         constants = bigleaf_constants()
-
-#     # check_input(data, [ustar])
-
-#     if d is None:
-#         d = frac_d * zh
-
-#     if estimate_z0m:
-#         rough = roughness_parameters("wind_profile", zh=zh, zr=zr, frac_d=frac_d, data=data,
-#                                      Tair=Tair, pressure=pressure, wind=wind,
-#                                      ustar=ustar, H=H, stab_roughness=stab_correction,
-#                                      stab_formulation=stab_formulation, constants=constants)
-#         z0m = rough["z0m"].values[0]
-
-#     z_diff = z - d
-#     z_diff[z_diff <= z0m] = np.nan
-
-#     if stab_correction:
-#         zeta = stability_parameter(data, Tair, pressure, ustar, H, zr, d, constants)
-#         psi_m = stability_correction(zeta, formulation=stab_formulation)["psi_m"]
-#     else:
-#         psi_m = 0
-
-#     ustar = data[ustar]
-#     uz = (ustar / constants['k']) * (np.log(z_diff / z0m) - psi_m)
-#     uz[z_diff <= z0m] = 0
-
-#     return uz
-
-# import numpy as np
-# import pandas as pd
 
 def wind_profile(data, z, Tair="Tair", pressure="pressure", ustar="ustar", H="H", wind="wind",
                  zr=None, zh=None, d=None, frac_d=0.7, z0m=None, frac_z0m=None, estimate_z0m=True,
@@ -105,6 +67,10 @@ def wind_profile(data, z, Tair="Tair", pressure="pressure", ustar="ustar", H="H"
 
     if constants is None:
         constants = bigleaf_constants()
+    if zr is None:
+        raise ValueError("zr must be specified")
+    if zh is None:
+        raise ValueError("zh must be specified")
 
     if stab_formulation not in ["Dyer_1970", "Businger_1971"]:
         raise ValueError("stab_formulation must be 'Dyer_1970' or 'Businger_1971'")
@@ -150,9 +116,9 @@ def wind_profile(data, z, Tair="Tair", pressure="pressure", ustar="ustar", H="H"
 
         psi_m = stability_correction(zeta, formulation=stab_formulation)["psi_m"]
         wind_heights = np.maximum(0, (data[ustar] / constants["k"]) *
-                                  (np.log(np.maximum(0.001, (z - d) / z0m)) - psi_m))
+                                  (np.log(np.maximum(0.001, (z - d) / z0m.item())) - psi_m))
     else:
         wind_heights = np.maximum(0, (data[ustar] / constants["k"]) *
-                                  np.log(np.maximum(0.001, (z - d) / z0m)))
+                                  np.log(np.maximum(0.001, (z - d) / z0m.item())))
 
     return wind_heights
